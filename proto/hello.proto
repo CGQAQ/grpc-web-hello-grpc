@@ -1,0 +1,29 @@
+syntax="proto3";
+
+package hello;
+option go_package = "github.com/cgqaq/grpc-web-hello-grpc/hello";
+
+import "google/protobuf/empty.proto";
+
+service Hello {
+  // unary rpc
+  rpc SayHello (HelloRequest) returns (HelloResponse);
+  // server streaming rpc
+  rpc ClockStream (google.protobuf.Empty) returns (stream ClockResponse);
+  // client streaming rpc
+  // rpc ClockStream (stream event) returns (google.protobuf.Empty);
+  // bidirectional streaming rpc
+  // rpc ClockStream (stream StreamClientEvents) returns (stream StreamServerEvents);
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string message = 1;
+}
+
+message ClockResponse {
+  string datetime = 1;
+}
