@@ -52,14 +52,6 @@ spec:
     port: 3000
     targetPort: 3000
     nodePort: 30001
-  - protocol: TCP
-    name: grpc-port
-    port: 6668
-    targetPort: 6668
-  - protocol: TCP
-    name: grpc-web-envoy-port
-    port: 60669
-    targetPort: 60669
 
 ---
 
