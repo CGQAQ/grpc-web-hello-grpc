@@ -1,7 +1,7 @@
 FROM envoyproxy/envoy:v1.29-latest
 
 # Copy the envoy configuration file
-COPY envoy-config-for-docker-desktop.yaml /etc/envoy/envoy.yaml
+COPY envoy-config-for-k8s.yaml /etc/envoy/envoy.yaml
 
 # Expose the port
 EXPOSE 6669

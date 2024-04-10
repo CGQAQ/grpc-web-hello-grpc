@@ -30,7 +30,7 @@ func (s *HelloServer) ClockStream(_ *emptypb.Empty, css pb.Hello_ClockStreamServ
 }
 
 func main() {
-	tcpServer, err := net.Listen("tcp", fmt.Sprintf(":%d", 6668))
+	tcpServer, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%d", 6668))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}

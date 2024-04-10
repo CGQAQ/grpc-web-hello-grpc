@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-web-deployment
+  labels:
+    app: grpc-web-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpc-web-deployment
+  template:
+    metadata:
+      name: grpc-web-deployment
+      labels:
+        app: grpc-web-deployment
+    spec:
+      containers:
+        - name: grpc-web-grpc-backend-go
+          image: cgqaq/grpc-web-hello-grpc-backend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6668
+              protocol: TCP
+        - name: grpc-web-envoy
+          image: cgqaq/grpc-web-hello-grpc-envoy
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 60669
+              protocol: TCP
+        - name: grpc-web-frontend
+          image: cgqaq/grpc-web-hello-grpc-web
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+      restartPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpc-web-service
+spec:
+  type: NodePort
+  selector:
+    app: grpc-web-deployment
+  ports:
+  - protocol: TCP
+    name: grpc-web-port
+    port: 3000
+    targetPort: 3000
+    nodePort: 30001
+  - protocol: TCP
+    name: grpc-port
+    port: 6668
+    targetPort: 6668
+  - protocol: TCP
+    name: grpc-web-envoy-port
+    port: 60669
+    targetPort: 60669
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: grpc-web-service-envoy
+spec:
+  type: LoadBalancer
+  selector:
+      app: grpc-web-deployment
+  ports:
+    - protocol: TCP
+      port: 60669
+      targetPort: 60669
