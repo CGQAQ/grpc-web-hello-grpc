@@ -29,7 +29,10 @@ export default function Home() {
 
     return (
         <main className="">
-            <input className="bg-gray-300 p-3" type="text" placeholder="Input the Name" onInput={(ev) => {setName(ev.target.value)}}/>
+            <input className="bg-gray-300 p-3" type="text" placeholder="Input the Name" onInput={(ev) => {
+                const target = ev.target as HTMLInputElement
+                setName(target.value)}
+            }/>
             <button className="p-3 bg-gray-300 hover:bg-gray-400" onClick={() => {
                 if (name.length === 0) {
                     alert("Name is required")
