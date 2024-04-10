@@ -16,5 +16,5 @@
 - open `http://localhost:3000` in browser
 
 ### HOW TO (Any system that have k8s installed)
--- double click k8s-apply.bat on Windows
--- run `k8s-apply.sh` on Unix like system
+- double click k8s-apply.bat on Windows
+- run `k8s-apply.sh` on Unix like system
